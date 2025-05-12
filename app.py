@@ -4,7 +4,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-API_KEY = '4d3441ff3b77dc371771b30b'
+API_KEY = 'Your_Key'
 
 # Dictionary of all available currency codes and their names
 CURRENCY_CODES = {
