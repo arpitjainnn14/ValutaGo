@@ -105,9 +105,9 @@ http://localhost:5000
 ## 👨‍💻 Developer Information
 
 - **Developer**: Arpit Jain
-- **Contact**: [Your Email]
-- **GitHub**: [Your GitHub]
-- **LinkedIn**: [Your LinkedIn]
+- **Contact**: jainarpit2004@gmail.com
+- **GitHub**: https://github.com/arpitjainnn14
+- **LinkedIn**: https://linkedin.com/in/arpitjain2004
 
 ## 📄 License
 
