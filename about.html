@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About ValutaGo - Our Story</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --background-color: #f8f9fa;
+            --text-color: #2c3e50;
+            --light-text: #7f8c8d;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .about-container {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 2rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .about-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            animation: scaleIn 0.8s ease-out;
+        }
+
+        .about-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .about-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>') center/cover;
+            opacity: 0.1;
+        }
+
+        .about-header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.2s;
+            animation-fill-mode: both;
+        }
+
+        .about-header p {
+            font-size: 1.2rem;
+            margin: 1rem 0 0;
+            opacity: 0.9;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.4s;
+            animation-fill-mode: both;
+        }
+
+        .about-content {
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--background-color);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.2s; }
+        .section:nth-child(2) { animation-delay: 0.4s; }
+        .section:nth-child(3) { animation-delay: 0.6s; }
+
+        .section:hover {
+            transform: translateY(-5px) scale(1.02);
+            transition: all 0.3s ease;
+        }
+
+        .section h2 {
+            color: var(--secondary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h2 i {
+            color: var(--accent-color);
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            color: var(--light-text);
+            margin-bottom: 1rem;
+        }
+
+        .developer-section {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .developer-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 3px solid var(--secondary-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            animation: scaleIn 0.8s ease-out 0.4s;
+            animation-fill-mode: both;
+        }
+
+        .developer-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .developer-avatar:hover img {
+            transform: scale(1.05);
+        }
+
+        .developer-avatar:hover {
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+
+        .developer-info h3 {
+            color: var(--primary-color);
+            margin: 0 0 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .developer-info p {
+            color: var(--light-text);
+            margin: 0;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            background: var(--background-color);
+            border-radius: 8px;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: var(--secondary-color);
+            color: white;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-link i {
+            margin-right: 0.5rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out 0.8s;
+            animation-fill-mode: both;
+        }
+
+        .back-button:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateX(-5px);
+            transition: all 0.3s ease;
+        }
+
+        .back-button i {
+            margin-right: 0.5rem;
+        }
+
+        .mission-statement {
+            background: linear-gradient(135deg, #f6f9fc 0%, #edf2f7 100%);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            animation: fadeInUp 0.8s ease-out 0.4s;
+            animation-fill-mode: both;
+        }
+
+        footer {
+            animation: fadeInUp 0.8s ease-out 0.6s;
+            animation-fill-mode: both;
+        }
+
+        footer .fa-heart {
+            animation: pulse 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .developer-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .about-header {
+                padding: 2rem 1rem;
+            }
+
+            .about-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="about-container">
+        <div class="about-card">
+            <div class="about-header">
+                <h1><i class="fas fa-coins me-2"></i>ValutaGo</h1>
+                <p>Transforming Global Currency Exchange</p>
+            </div>
+
+            <div class="about-content">
+                <div class="section">
+                    <h2><i class="fas fa-book-open"></i> Our Origin Story</h2>
+                    <p>
+                        In the bustling world of global finance, where currencies dance across borders and markets never sleep, 
+                        ValutaGo was born from a simple yet profound realization: currency conversion should be accessible to everyone.
+                    </p>
+                    <p>
+                        The journey began when Arpit Jain, a passionate developer with a vision for financial technology, 
+                        experienced firsthand the challenges of navigating international currencies. What started as a personal 
+                        project to simplify currency conversion quickly evolved into something much bigger.
+                    </p>
+                    <p>
+                        Today, ValutaGo stands as a testament to the power of combining technical innovation with user-centric 
+                        design. It's not just a tool; it's a bridge connecting people to the global economy, making complex 
+                        financial calculations as simple as a click.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h2><i class="fas fa-bullseye"></i> Our Mission</h2>
+                    <div class="mission-statement">
+                        "To democratize access to currency conversion by providing a fast, accurate, and user-friendly platform 
+                        that empowers individuals and businesses to navigate the global economy with confidence."
+                    </div>
+                    <p>
+                        At ValutaGo, we believe that understanding and converting currencies shouldn't be a privilege reserved 
+                        for financial experts. Our mission is to make currency conversion accessible, accurate, and beautiful 
+                        for everyone, from international travelers to global businesses.
+                    </p>
+                    <p>
+                        We're committed to:
+                    </p>
+                    <ul>
+                        <li>Providing real-time, accurate exchange rates</li>
+                        <li>Creating an intuitive, user-friendly interface</li>
+                        <li>Supporting a wide range of global currencies</li>
+                        <li>Ensuring accessibility for all users</li>
+                        <li>Maintaining the highest standards of reliability</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2><i class="fas fa-code"></i> Meet the Developer</h2>
+                    <div class="developer-section">
+                        <div class="developer-avatar">
+                            <img src="{{ url_for('static', filename='profile.jpg') }}" 
+                                 alt="{{ creator.name }}'s photo" 
+                                 id="dev-avatar">
+                        </div>
+                        <div class="developer-info">
+                            <h3>{{ creator.name }}</h3>
+                            <p>Full Stack Developer & Financial Technology Enthusiast</p>
+                            <p>
+                                A passionate developer with a keen interest in creating solutions that make a difference. 
+                                With expertise in web development and a deep understanding of financial technology, 
+                                I created ValutaGo to address the need for a reliable, user-friendly currency conversion tool.
+                            </p>
+                            <div class="contact-links">
+                                <a href="mailto:{{ creator.email }}" class="contact-link">
+                                    <i class="fas fa-envelope"></i>Email
+                                </a>
+                                <a href="{{ creator.github }}" target="_blank" class="contact-link">
+                                    <i class="fab fa-github"></i>GitHub
+                                </a>
+                                <a href="{{ creator.linkedin }}" target="_blank" class="contact-link">
+                                    <i class="fab fa-linkedin"></i>LinkedIn
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="/" class="back-button">
+                        <i class="fas fa-arrow-left"></i>Back to Converter
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center" style="color: var(--light-text); margin-top: 2rem;">
+            <p>&copy; {{ creator.year }} ValutaGo. All rights reserved.</p>
+            <p>Created with <i class="fas fa-heart" style="color: var(--accent-color);"></i> by {{ creator.name }}</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("dev-avatar").onerror = (function() { this.onerror= null; this.src = "{{ url_for('static', filename='default-avatar.png') }}"; });
+    </script>
+</body>
+</html> 

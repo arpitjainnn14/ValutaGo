@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ValutaGo - Currency Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --background-color: #f8f9fa;
+            --sidebar-width: 300px;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .sidebar-header {
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-header h2 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            margin: 0;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .currency-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .currency-list li {
+            padding: 0.5rem;
+            border-radius: 5px;
+            margin-bottom: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: slideInLeft 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .currency-list li:hover {
+            transform: translateX(5px);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .currency-code {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .currency-name {
+            font-size: 0.9rem;
+            color: #bdc3c7;
+        }
+
+        .content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+        }
+
+        .converter-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .brand-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin: 0;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .brand-header .tagline {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            animation: fadeInUp 0.8s ease-out 0.2s;
+            animation-fill-mode: both;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 0.8rem;
+            border: 1px solid #dee2e6;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(52,152,219,.25);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        .btn-convert {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #2980b9 100%);
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-convert:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(52,152,219,0.4);
+        }
+
+        .result-container {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background: var(--background-color);
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .error-message {
+            color: var(--accent-color);
+            margin-top: 1rem;
+            display: none;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(231,76,60,0.1);
+        }
+
+        .currency-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .search-box {
+            margin-bottom: 1rem;
+        }
+
+        .search-box input {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .search-box input:focus {
+            background: rgba(255,255,255,0.15);
+            outline: none;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                z-index: 1000;
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .content {
+                margin-left: 0;
+            }
+            .toggle-sidebar {
+                display: block !important;
+            }
+        }
+
+        .toggle-sidebar {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        footer {
+            animation: fadeInUp 0.8s ease-out 0.5s;
+            animation-fill-mode: both;
+        }
+
+        footer .fa-heart {
+            animation: pulse 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .currency-list li:nth-child(1) { animation-delay: 0.1s; }
+        .currency-list li:nth-child(2) { animation-delay: 0.2s; }
+        .currency-list li:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <button class="toggle-sidebar" id="toggleSidebar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="main-container">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-coins me-2"></i>ValutaGo</h2>
+                <div class="search-box">
+                    <input type="text" id="currencySearch" placeholder="Search currencies...">
+                </div>
+            </div>
+            <ul class="currency-list" id="currencyList">
+                {% for code, name in currencies.items() %}
+                <li data-code="{{ code }}">
+                    <span class="currency-code">{{ code }}</span>
+                    <span class="currency-name">{{ name }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="converter-container">
+                <div class="brand-header">
+                    <i class="fas fa-exchange-alt currency-icon"></i>
+                    <h1>ValutaGo</h1>
+                    <p class="tagline">Fast & Accurate Currency Conversion</p>
+                    <a href="/about" class="about-link" style="color: var(--secondary-color); text-decoration: none; font-size: 0.9rem; margin-top: 0.5rem; display: inline-block;">
+                        <i class="fas fa-info-circle"></i> About ValutaGo
+                    </a>
+                </div>
+                <form id="converterForm">
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Amount</label>
+                        <input type="number" class="form-control" id="amount" name="amount" step="0.01" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="from_currency" class="form-label">From</label>
+                            <input type="text" class="form-control" id="from_currency" name="from_currency" placeholder="USD" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="to_currency" class="form-label">To</label>
+                            <input type="text" class="form-control" id="to_currency" name="to_currency" placeholder="EUR" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-convert text-white">
+                        <i class="fas fa-sync-alt me-2"></i>Convert
+                    </button>
+                </form>
+                <div class="result-container" id="resultContainer">
+                    <h5 class="text-center mb-3">Conversion Result</h5>
+                    <p class="text-center mb-2" id="resultText"></p>
+                    <p class="text-center text-muted small" id="rateText"></p>
+                </div>
+                <div class="error-message" id="errorMessage"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Toggle sidebar on mobile
+            $('#toggleSidebar').click(function() {
+                $('#sidebar').toggleClass('active');
+            });
+
+            // Currency search functionality
+            $('#currencySearch').on('input', function() {
+                const searchTerm = $(this).val().toLowerCase();
+                $('.currency-list li').each(function() {
+                    const code = $(this).data('code').toLowerCase();
+                    const name = $(this).find('.currency-name').text().toLowerCase();
+                    if (code.includes(searchTerm) || name.includes(searchTerm)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+
+            // Currency selection from sidebar
+            $('.currency-list li').click(function() {
+                const code = $(this).data('code');
+                if ($('#from_currency').is(':focus')) {
+                    $('#from_currency').val(code);
+                } else if ($('#to_currency').is(':focus')) {
+                    $('#to_currency').val(code);
+                }
+            });
+
+            // Form submission
+            $('#converterForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                $.ajax({
+                    url: '/convert',
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.success) {
+                            $('#resultText').text(response.result);
+                            $('#rateText').text(`Exchange Rate: 1 ${response.base_name} = ${response.rate} ${response.target_name}`);
+                            $('#resultContainer').slideDown();
+                            $('#errorMessage').hide();
+                        } else {
+                            $('#errorMessage').text(response.error).show();
+                            $('#resultContainer').hide();
+                        }
+                    },
+                    error: function() {
+                        $('#errorMessage').text('An error occurred. Please try again.').show();
+                        $('#resultContainer').hide();
+                    }
+                });
+            });
+
+            // Close sidebar when clicking outside on mobile
+            $(document).click(function(e) {
+                if ($(window).width() <= 768) {
+                    if (!$(e.target).closest('#sidebar, #toggleSidebar').length) {
+                        $('#sidebar').removeClass('active');
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: white; border-top: 1px solid rgba(255,255,255,0.1); position: relative; width: 100%;">
+        <div class="container-fluid px-4">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <p class="mb-1">&copy; {{ creator.year }} ValutaGo. All rights reserved.</p>
+                    <p class="mb-0">Created with <i class="fas fa-heart" style="color: #e74c3c;"></i> by {{ creator.name }}</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
