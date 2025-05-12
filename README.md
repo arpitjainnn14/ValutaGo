@@ -2,7 +2,7 @@
 
 A beautiful, responsive web application for real-time currency conversion built with Flask and modern web technologies.
 
-![ValutaGo Screenshot](static/screenshot.png)
+![ValutaGo Screenshot](screenshot.png)
 
 ## 🌟 Features
 
