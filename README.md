@@ -36,7 +36,7 @@ A beautiful, responsive web application for real-time currency conversion built 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/valutago.git
+git clone https://github.com/arpitjainnn14/valutago.git
 cd valutago
 ```
 
